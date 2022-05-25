@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     const loadImage= document.getElementById("LoadImage");
+    const scaleElement= document.getElementById("ScaleElement");
     const ImgContent= document.getElementById("ImgContent");
 
     loadImage.addEventListener("click", (e) => {
@@ -13,40 +14,32 @@ $(document).ready(function() {
         ImgContent.appendChild(event.result);
     }
 
-    var canvas = document.getElementById("testCanvas"),
+    var canvas = document.getElementById("testScaling"),
     stage = new createjs.Stage(canvas);
 
-    var sb = new createjs.ScaleBitmap(image, 
-    new createjs.Rectangle(12, 12, 5, 10));
-    sb.setDrawSize(200, 100);
-    stage.addChild(sb);
-
-    stage.on("stagemousedown", function(e) {
-    
-    sb.setDrawSize(
-        Math.random() * Math.min(600, canvas.width-200) + 100 | 0, // Random size
-        Math.random() * Math.min(500, canvas.height-100) + 60 | 0
-    );
-    
-    center();
+    function resize() {
+        var w, h;
+        var size = [1920, 1080];
+        ratio = size[0] / size[1];
+        if (window.innerWidth / window.innerHeight >= ratio) {
+            w = window.innerHeight * ratio;
+            h = window.innerHeight;
+        } else {
+            w = window.innerWidth;
+            h = window.innerWidth / ratio;
+        }
+        
+        stage.canvas.width = w;
+        stage.canvas.height = h;
         stage.update();
-    });
-
-    function center() {
-    sb.x = canvas.width - sb.drawWidth >> 1;
-    sb.y = canvas.height - sb.drawHeight >> 1;
-    }
-
-    function handleResize(event) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    stage.update();
-    }
     
-    window.addEventListener("resize", handleResize);
+        var scale = w/1920;
+        stage.scaleX = stage.scaleY = scale;
+    }
 
-    handleResize();
-    center();
+    scaleElement.addEventListener("click", (e) => {
+        resize();
+    });
 
 });
 
