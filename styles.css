@@ -1,0 +1,34 @@
+.bg-black{
+    background-color: #212121;
+}
+
+.c-blue{
+    color: #007BFF;
+}
+
+.c-red{
+    color: #d43535;
+}
+
+.c-green{
+    color: #1da72f;
+}
+
+.actions{
+    border: none !important;
+    display: flex;
+    justify-content: center;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.table td{
+    vertical-align: middle !important;
+}
+
+.canva{
+    height: 250;
+    width: 250;
+}
